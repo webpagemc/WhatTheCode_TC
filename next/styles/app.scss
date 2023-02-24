@@ -1,0 +1,116 @@
+$principalColor:black;
+$secondaryColor:rgb(13, 0, 73);
+$textColor:white;
+
+*{
+    color: $textColor;
+    font-family: "century gothic";
+}
+
+html,body{
+    margin: 0;
+}
+
+@mixin flexbox($JC:center,$AC:center){
+
+    display: flex;
+    justify-content: $JC;
+    align-content: $AC;
+    flex-wrap: wrap;
+
+}
+
+@keyframes appear {
+    0%{
+        opacity: 0%;
+    }
+    50%{
+        opacity: 100%;
+        box-shadow: 0px 0px 30px silver;
+    }
+    100%{
+        opacity: 100%;
+        box-shadow: 0px 0px 20px silver;
+    }
+}
+
+.main{
+
+    @include flexbox();
+    background: linear-gradient(to right, $principalColor, $secondaryColor);
+    margin: 0;
+    height: 100vh;
+
+    .form_container{
+
+        @include flexbox();
+        padding: 1vmax;
+        border-radius: 10px 100px 10px 100px;
+        width: 40vmax;
+        box-shadow: 0px 0px 20px silver;
+        user-select: none;
+        animation: appear normal 2s ;
+    
+
+        h2{
+            text-align: center;
+            width: 100%;
+            letter-spacing: 3px ;
+            font-size: 5vmax;
+        }
+
+        details{
+
+            width: 80%;
+            text-align: center;
+            margin: 10px;
+            padding: 15px;
+            border-radius: 50px;
+            background: linear-gradient(to right, $secondaryColor, transparent);
+
+            summary{
+                list-style: none;
+                padding: 5px;
+                cursor: pointer;
+                transition:.2s
+            }
+
+            summary:hover{
+                text-shadow: 0px 2px 5px white
+            }
+
+            form{
+
+                @include flexbox();
+                padding: 15px;
+
+                input{
+
+                    margin: 5px;
+                    padding: 2px;
+                    color: $secondaryColor;
+                    text-align: center;
+                    width: 60vmax;
+                    
+                }
+
+                button{
+
+                    width: 70%;
+                    color: $textColor;
+                    background: black;
+                    padding: 5px;
+                    margin: 5px;
+                    border: 0px;
+                    border-radius: 50px;
+                    cursor: pointer;
+
+                }
+    
+            }
+    
+        }
+        
+    }
+
+}
