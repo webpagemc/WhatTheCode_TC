@@ -19,9 +19,9 @@ app.use("/api",require("./routes/index"));
 
 app.delete("/borrar",async(req,res)=>{
 
-    const {blogModel} = require("./models/blog")
-    const {usuarioModel} = require("./models/usuario")
-    const {departamentoModel} = require("./models/departamento")
+    const {blogModel} = require("./models/blog");
+    const {usuarioModel} = require("./models/usuario");
+    const {departamentoModel} = require("./models/departamento");
 
     await blogModel.deleteMany({})
     await usuarioModel.deleteMany({})

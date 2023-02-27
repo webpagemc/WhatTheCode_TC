@@ -12,15 +12,12 @@ const bloggerAuth = async(req,res,next)=>{
     const token = storageToken.split(" ").pop();
 
     const dataToken = await verifyToken(token);
-    console.log(dataToken);
 
     if(!dataToken.usuario){res.send("Error de Autenticacion")};
 
     next();
         
-    } catch (e) {
-        res.send(console.log(req.headers.authorization))
-    }
+    } catch (e){ throw new Error(e) }
 }
 
 const AdminAuth = async(req,res,next)=>{
@@ -42,9 +39,7 @@ const AdminAuth = async(req,res,next)=>{
 
     }else{ next() }
 
-    } catch (e) {
-        res.send(console.log(req.headers.authorization))
-    }
+     } catch (e){ throw new Error(e) }
 }
 
 module.exports = {bloggerAuth,AdminAuth};

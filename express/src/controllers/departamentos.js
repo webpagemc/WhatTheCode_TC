@@ -8,7 +8,7 @@ const getDepartamentos = async(req,res)=>{
         const data = await departamentoModel.find().lean();
         res.send(data);
         
-    } catch (err) { throw new Error("Sucedio un error durante la peticion",err) }
+    } catch (e){ throw new Error(e) }
 
 }
 
@@ -20,7 +20,7 @@ const getOneDepartamento = async(req,res)=>{
         const data = await departamentoModel.findOne({_id:id})
         res.send(data);
         
-    } catch (err) { throw new Error("Sucedio un error durante la peticion",err) }
+    } catch (e){ throw new Error(e) }
 
 }
 
@@ -40,7 +40,7 @@ const createDepartamento = async(req,res)=>{
             
         }
         
-    } catch (err) { throw new Error("Sucedio un error durante la peticion",err) }
+    } catch (e){ throw new Error(e) }
 
 }
 
@@ -55,7 +55,7 @@ const deleteDepartamento = async(req,res)=>{
 
         res.send(`El dpto. ${id} fue eliminado, junto con todos sus usuarios`);
         
-    } catch (err) { throw new Error("Sucedio un error durante la peticion",err) }
+    } catch (e){ throw new Error(e) }
 
 }
 

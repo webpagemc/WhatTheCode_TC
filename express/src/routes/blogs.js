@@ -7,6 +7,6 @@ router.get("/",bloggerAuth, getBlogs)
 
 router.post("/",bloggerAuth,createBlog)
 
-router.delete("/:autor/:id",deleteBlog)
+router.delete("/:autor/:id",AdminAuth,deleteBlog)
 
 module.exports = router

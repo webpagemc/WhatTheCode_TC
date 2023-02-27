@@ -10,7 +10,7 @@ const getUsuarios = async(req,res)=>{
         const data = await usuarioModel.find().lean();
         res.send(data);
 
-    } catch (err) { throw new Error("Sucedio un error durante la peticion",err) }
+    } catch (e){ throw new Error(e) }
 
 }
 
@@ -42,7 +42,7 @@ const createUsuario = async(req,res)=>{
         }
         
         
-    } catch (err) { console.log("Sucedio un error durante la peticion",err) }
+    } catch (e){ throw new Error(e) }
 
 }
 
