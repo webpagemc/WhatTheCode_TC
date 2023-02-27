@@ -38,4 +38,14 @@ require("../mongo/connection");
 
 
 
+/*HACER CAMBIOS DEL ID 
+
+CONST USERID = USER.FINDONE(ID).USER 
+CONST BLOGDEUSUARIO = BLOGS.FINDONE(USERID)
+
+
+*/
+
+
+
 

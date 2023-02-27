@@ -1,0 +1,29 @@
+//variables
+$principalColor:black;
+$secondaryColor:rgb(13, 0, 73);
+$textColor:white;
+
+//mixins
+@mixin flexbox($JC:center,$AC:center){
+
+    display: flex;
+    justify-content: $JC;
+    align-content: $AC;
+    flex-wrap: wrap;
+
+}
+
+//animations
+@keyframes appear {
+    0%{
+        opacity: 0%;
+    }
+    50%{
+        opacity: 100%;
+        box-shadow: 0px 0px 30px silver;
+    }
+    100%{
+        opacity: 100%;
+        box-shadow: 0px 0px 20px silver;
+    }
+}

@@ -34,3 +34,15 @@ Agradezco enormemente el hecho de que me hayan tenido en cuenta
 
 Atte: Mauro :)
 
+# dependencias instaladas:
+
+/next:
+
+npm i sass
+
+/express:
+
+npm i express cors jsonwebtoken mongoose axios@0.7.0 dotenv bcryptjs
+
+npm i nodemon --save-dev (desarrollo)
+

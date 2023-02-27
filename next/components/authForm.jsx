@@ -1,10 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
-import axios from "../node_modules/axios"; 
+import axios from "axios"; 
 
 export default function AuthForm(){
+    
+    const APIDOMAIN = "http://localhost:8080"
+    const LOCALDOMAIN = "http://localhost:3000"
 
-    const DOMINIO = "http://localhost:8080"
+    useEffect(()=>{
+
+            const Token = window.localStorage.getItem("Token");
+
+            if(Token ){
+        
+            if(Token.toString() === "tokenFalse".toString() ){ null }
+            else{ window.location.href = `${LOCALDOMAIN}/home` }
+        
+            }
+
+        },[])
 
     const [usuarioState,setUsuarioState] = useState("");
     const [contraseñaState,setContraseñaState] = useState("");
@@ -12,27 +26,27 @@ export default function AuthForm(){
     const changeUser = (e)=>{setUsuarioState(e.target.value)};
     const changePass = (e)=>{setContraseñaState(e.target.value)};
 
-const login = ()=>{
+const login = async(event)=>{
 
         event.preventDefault();
-        axios.post(`${DOMINIO}/api/usuarios/login`,{
-
+        const respone = await axios.post(`${APIDOMAIN}/api/usuarios/login`,{
+ 
             usuario:usuarioState,
             contraseña:contraseñaState
 
-        }).then((token)=>{ window.localStorage.setItem("Token",token.data) })
+        })
+
+        window.localStorage.setItem("Token",response.data.token)
 
         const Token = window.localStorage.getItem("Token");
           
-        if(Token === "tokenFalse"){ 
+        if(Token.toString() === "tokenFalse".toString()){ 
             
-        window.location.href = "http://localhost:3000" 
+        window.location.href = LOCALDOMAIN
         
-        }else{ window.location.href = "http://localhost:3000/admin" }
+        }else{ window.location.href =  `${LOCALDOMAIN}/home` }
 
 }
-
-
 
     return(
 
@@ -41,10 +55,9 @@ const login = ()=>{
     <h2>Bienvenid@!</h2>
 
     <details>
-
     <summary> Login </summary>
 
-        <form action="http://localhost:8080/api/usuarios/login" method="post" encType='multipart/form-data'>
+        <form action={`${APIDOMAIN}/api/usuarios/login`} method="post" encType='multipart/form-data'>
 
         <input type="text" name="usuario" placeholder="nombre de usuario" id="usuario" onChange={changeUser} value={usuarioState}  />
         <input type="password" name="contraseña" placeholder="contraseña" id="contraseña" onChange={changePass} value={contraseñaState}   />

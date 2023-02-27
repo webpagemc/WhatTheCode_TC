@@ -5,7 +5,7 @@ const blogSchema = new mongoose.Schema(
     {
         titulo:{type:String},
         contenido:{type:String},
-        autor:{type:String, ref:"usuario"}
+        autor:{type:mongoose.Schema.Types.ObjectId, ref:"usuario"}
     },
     {
         versionKey:false,

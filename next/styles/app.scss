@@ -1,6 +1,4 @@
-$principalColor:black;
-$secondaryColor:rgb(13, 0, 73);
-$textColor:white;
+@import "variables&mixins" ;
 
 *{
     color: $textColor;
@@ -11,28 +9,6 @@ html,body{
     margin: 0;
 }
 
-@mixin flexbox($JC:center,$AC:center){
-
-    display: flex;
-    justify-content: $JC;
-    align-content: $AC;
-    flex-wrap: wrap;
-
-}
-
-@keyframes appear {
-    0%{
-        opacity: 0%;
-    }
-    50%{
-        opacity: 100%;
-        box-shadow: 0px 0px 30px silver;
-    }
-    100%{
-        opacity: 100%;
-        box-shadow: 0px 0px 20px silver;
-    }
-}
 
 .main{
 
@@ -61,7 +37,6 @@ html,body{
 
         details{
 
-            width: 80%;
             text-align: center;
             margin: 10px;
             padding: 15px;
@@ -91,6 +66,8 @@ html,body{
                     color: $secondaryColor;
                     text-align: center;
                     width: 60vmax;
+                    border-radius: 5px;
+                    border:none;
                     
                 }
 
@@ -98,7 +75,7 @@ html,body{
 
                     width: 70%;
                     color: $textColor;
-                    background: black;
+                    background: linear-gradient(to right, blue, transparent);
                     padding: 5px;
                     margin: 5px;
                     border: 0px;

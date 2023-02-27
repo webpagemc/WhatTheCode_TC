@@ -8,7 +8,6 @@ const departamentoSchema = new mongoose.Schema(
             type:[
                 {
                     id:{type:mongoose.Schema.Types.ObjectId, ref:"usuario"},
-                    usuario:{type:String},
                     _id:false
                 },
             ],
