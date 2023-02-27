@@ -4,16 +4,24 @@ const {verifyToken} = require("../utils/jsonwebtoken");
 
 const getBlogs = async(req,res)=>{
 
-    const data = await blogModel.find().lean();
-    res.send(data);
+    blogModel.find({},(err,blogs)=>{
+
+        usuarioModel.populate(blogs,{path:"autor"},(err,data)=>{
+            
+            res.send(data)
+
+        })
+
+    })
+    
 
 }
 
 const createBlog = async(req,res)=>{
 
-    const body = req.body
+    const body = await req.body
 
-    const storageToken =  req.headers.authorization
+    const storageToken = await req.headers.authorization
     if(!storageToken){res.send("No hay ninguna sesion iniciada")}
 
     const token = storageToken.split(" ").pop();
@@ -26,7 +34,7 @@ const createBlog = async(req,res)=>{
 
     usuario.blogs.push({ id:blog._id })
 
-    await usuarioModel.findOneAndUpdate({usuario:autor},usuario)
+    await usuarioModel.findOneAndUpdate({_id:autor},usuario)
 
     res.send(`El usuario ${autor} creó un nuevo blog`);
 

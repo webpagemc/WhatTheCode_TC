@@ -6,7 +6,7 @@ const usuarioSchema = new mongoose.Schema(
         usuario:{type:String},
         contraseña:{type:String},
         role:{type:String, default:"blogger" /* blogger or admin*/ },
-        departamento:{ type:mongoose.Schema.Types.ObjectId, ref:"departamento"},
+        departamento:{ type:String},
         blogs:{ type: [{ id:{type:mongoose.Schema.Types.ObjectId, ref:"blogs"}, _id:false }] , default:[] }
     },
     {
@@ -15,6 +15,6 @@ const usuarioSchema = new mongoose.Schema(
     }
 );
 
-const usuarioModel = mongoose.model("usuario",usuarioSchema);
+const usuarioModel = mongoose.model("usuarios",usuarioSchema);
 
 module.exports = {usuarioModel}

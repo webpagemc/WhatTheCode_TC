@@ -50,20 +50,23 @@ const deleteUsuario = async(req,res)=>{
 
     try {
 
-        const id = req.params.id
+        const userId = req.params.id;
+
+        const usuario = await usuarioModel.findOne({_id:userId});
+        const departamento = await departamentoModel.findOne({nombre:usuario.departamento})
+
+      if(!usuario){throw new Error("El usuario no existe")}
+
+        await usuarioModel.deleteOne({_id:userId});
+
+        const usuariosFilter = departamento.usuarios.filter( element => element.id.toString() !== usuario._id.toString() )
+        departamento.usuarios = usuariosFilter
+
+        await departamentoModel.findOneAndUpdate({nombre:departamento.nombre},departamento);
+
+        res.send(`El usuario ${userId} fue eliminado`);
         
-        const userDeleted = await usuarioModel.deleteOne({_id:id});
-        const departamento = await departamentoModel.findOne({nombre:userDeleted.departamento});
-
-        const newDepartamento = departamento.usuarios.filter(dpto => dpto.usuario.toString() === userDeleted.usuario.toString());
-
-        departamento.usuarios = newDepartamento
-
-        await departamentoModel.findOneAndUpdate({nombre:userDeleted.departamento},departamento)
-
-        res.send(`El usuario ${id} fue eliminado`);
-        
-    } catch (err) { throw new Error("Sucedio un error durante la peticion",err) }
+    } catch (err) { throw new Error(err)  }
 
 }
 
@@ -93,5 +96,6 @@ const loginUsuario = async(req,res)=>{
     }
 
 }
+
 
 module.exports = {getUsuarios,createUsuario,deleteUsuario,loginUsuario}

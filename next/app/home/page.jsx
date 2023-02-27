@@ -1,18 +1,20 @@
 "use client"
 import "../../styles/home.scss"
+import { useEffect, useState } from "react"
 import axios from "axios"
 
 export default function Home(){
 /* eslint-disable */
 
     const APIDOMAIN = "http://localhost:8080"
+    const LOCALDOMAIN = "http://localhost:3000"
 
     const addBlog = async(e) =>{
 
         e.preventDefault();
-        const Token = window.localStorage.getItem("Token");
+        const Token = window.sessionStorage.getItem("Token");
 
-        const createBlog = document.getElementById("createBlog");
+        if(!Token || Token.toString() === "tokenFalse".toString()){ window.location.href = LOCALDOMAIN };
 
         const titulo = e.target.form["titulo"].value
         const contenido = e.target.form["contenido"].value
@@ -22,13 +24,36 @@ export default function Home(){
         const headers = {
             headers:{
               "Authorization":"Bearer "+ Token,
+              "Content-Type": "application/json", 
+            }
+          };
+
+        await axios.post(url,data,headers);
+
+        location.reload()
+    }
+
+    const [stateblogs,setStateBlogs] = useState([]);
+
+    useEffect(()=>{
+
+        const Token = window.sessionStorage.getItem("Token");
+    
+        if(!Token || Token.toString() === "tokenFalse".toString() || Token === undefined){ window.location.href = LOCALDOMAIN };
+
+        const url = `${APIDOMAIN}/api/blogs`
+        const headers = {
+            headers:{
+              "Authorization":"Bearer "+ Token,
               "Content-Type": "application/json",
             }
           };
 
-        await axios.post(url,data,headers).then((r) => console.log(r))
+          axios.get(url,headers)
+          .then((blogs)=>{setStateBlogs(blogs.data)})
 
-    }
+    },[])
+
 
 return( 
 
@@ -57,17 +82,24 @@ return(
 
          <div className="blogs_container">
 
-            <div className="blog">
+            {
+                stateblogs.map(
 
-                <div className="blog_title">Di Stefano es Español</div>
-                <div className="blog_autor_dpto">ElGallego2010 - Deportes </div>
-                <div className="blog_content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Iste odio iure architecto ut ullam soluta minus assumenda, molestiae neque minima 
-                voluptates harum voluptate eveniet, explicabo itaque, deserunt quam quaerat veniam?
-                </div>
-                
-            </div>
+                    (blog)=>{
+                        return(
+                            
+                            <div className="blog">
+
+                            <div className="blog_title"> {blog.titulo} </div>
+                            <div className="blog_autor_dpto">{blog.autor.usuario} - {blog.autor.departamento} </div>
+                            <div className="blog_content"> {blog.contenido} </div>
+
+                            </div>
+                        )
+                    }
+                    
+                )
+            }
 
          </div>
 

@@ -7,7 +7,7 @@ const departamentoSchema = new mongoose.Schema(
         usuarios:{
             type:[
                 {
-                    id:{type:mongoose.Schema.Types.ObjectId, ref:"usuario"},
+                    id:{type:mongoose.Schema.Types.ObjectId, ref:"usuarios"},
                     _id:false
                 },
             ],
@@ -20,6 +20,6 @@ const departamentoSchema = new mongoose.Schema(
     }
 )
 
-const departamentoModel = mongoose.model("departamento",departamentoSchema);
+const departamentoModel = mongoose.model("departamentos",departamentoSchema);
 
 module.exports = {departamentoModel}

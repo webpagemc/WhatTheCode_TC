@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios"; 
+import jwt from "jsonwebtoken";
 
 export default function AuthForm(){
     
@@ -9,15 +10,21 @@ export default function AuthForm(){
 
     useEffect(()=>{
 
-            const Token = window.localStorage.getItem("Token");
+        const Token = window.sessionStorage.getItem("Token");
 
-            if(Token ){
+        if(Token){
+
+            const role = jwt.decode(Token).role
         
             if(Token.toString() === "tokenFalse".toString() ){ null }
-            else{ window.location.href = `${LOCALDOMAIN}/home` }
-        
-            }
+            else{ 
 
+                if(role === "admin"){window.location.href = `${LOCALDOMAIN}/admin`} else { window.location.href = `${LOCALDOMAIN}/home`}
+
+            }
+        }
+
+            
         },[])
 
     const [usuarioState,setUsuarioState] = useState("");
@@ -29,22 +36,23 @@ export default function AuthForm(){
 const login = async(event)=>{
 
         event.preventDefault();
-        const respone = await axios.post(`${APIDOMAIN}/api/usuarios/login`,{
+        const response = await axios.post(`${APIDOMAIN}/api/usuarios/login`,{
  
             usuario:usuarioState,
             contraseña:contraseñaState
 
         })
 
-        window.localStorage.setItem("Token",response.data.token)
+        window.sessionStorage.setItem("Token",response.data)
 
-        const Token = window.localStorage.getItem("Token");
+        const Token = window.sessionStorage.getItem("Token");
+        const role = jwt.decode(Token).role
           
-        if(Token.toString() === "tokenFalse".toString()){ 
+        if(!Token || Token.toString() === "tokenFalse".toString()){ 
             
         window.location.href = LOCALDOMAIN
         
-        }else{ window.location.href =  `${LOCALDOMAIN}/home` }
+        }else{ if(role === "admin"){window.location.href = `${LOCALDOMAIN}/admin`} else { window.location.href = `${LOCALDOMAIN}/home` }}
 
 }
 
@@ -59,8 +67,8 @@ const login = async(event)=>{
 
         <form action={`${APIDOMAIN}/api/usuarios/login`} method="post" encType='multipart/form-data'>
 
-        <input type="text" name="usuario" placeholder="nombre de usuario" id="usuario" onChange={changeUser} value={usuarioState}  />
-        <input type="password" name="contraseña" placeholder="contraseña" id="contraseña" onChange={changePass} value={contraseñaState}   />
+        <input type="text" name="usuario" placeholder="nombre de usuario" id="usuario" onChange={changeUser} value={usuarioState} />
+        <input type="password" name="contraseña" placeholder="contraseña" id="contraseña" onChange={changePass} value={contraseñaState} />
 
         <button type="submit" onClick={login}>Ingresar</button>
         </form>

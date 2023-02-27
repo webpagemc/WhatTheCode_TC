@@ -22,7 +22,7 @@ html,body{
         @include flexbox();
         padding: 1vmax;
         border-radius: 10px 100px 10px 100px;
-        width: 40vmax;
+        width: 50vmax;
         box-shadow: 0px 0px 20px silver;
         user-select: none;
         animation: appear normal 2s ;
@@ -42,22 +42,24 @@ html,body{
             padding: 15px;
             border-radius: 50px;
             background: linear-gradient(to right, $secondaryColor, transparent);
+            width: 70%;
+            @include flexbox;
 
             summary{
                 list-style: none;
                 padding: 5px;
                 cursor: pointer;
-                transition:.2s
+                transition:.2s;
             }
 
             summary:hover{
-                text-shadow: 0px 2px 5px white
+                text-shadow: 0px 2px 5px white;
             }
 
             form{
 
                 @include flexbox();
-                padding: 15px;
+                padding: 5px;
 
                 input{
 
@@ -65,7 +67,7 @@ html,body{
                     padding: 2px;
                     color: $secondaryColor;
                     text-align: center;
-                    width: 60vmax;
+                    width: 100%;
                     border-radius: 5px;
                     border:none;
                     

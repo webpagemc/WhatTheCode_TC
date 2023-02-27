@@ -10,7 +10,6 @@ html,body{
     margin: 0;
 }
 
-
 .main{
 
     background: linear-gradient(to right, $principalColor, $secondaryColor);
@@ -33,12 +32,11 @@ html,body{
     .form_container{
 
         height: 90vh;
-        width: 70%;
+        width: 80vmax;
         @include flexbox();
 
         details{
 
-            width: 100%;
             text-align: center;
             margin: 20px;
             padding: 15px;
@@ -51,7 +49,7 @@ html,body{
                     padding: 5px;
                     cursor: pointer;
                     transition:.2s;
-                    font-size: 2vmax;
+                    font-size: 3vmax;
                 }
     
                 summary:hover{
@@ -112,8 +110,6 @@ html,body{
     }
 
 
-    
-
     .blogs_container{
 
         @include flexbox();
@@ -123,9 +119,9 @@ html,body{
         .blog{
 
             background: linear-gradient(to right, $secondaryColor, transparent);
-            margin: 10px;
+            margin: 5px;
             border-radius: 20px;
-            width: 80%;
+            width: 90%;
             border-bottom-left-radius: 50px;
 
             .blog_title{
@@ -133,14 +129,18 @@ html,body{
                 padding: 10px;
                 border-top-left-radius: 20px;
                 font-size: 3vmax;
+                text-align: center;
             }
 
             .blog_autor_dpto{
                 padding: 10px;
+                font-size: 1.5vmax;
+                text-align: center;
             }
             .blog_content{
                 padding: 20px;
                 border-bottom-left-radius: 50px;
+                font-size: 1.5vmax;
 
             }
             
